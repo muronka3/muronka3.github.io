@@ -3,10 +3,10 @@
     <!-- Visual Composition -->
     <div class="hero-visual">
       <div class="composition-container">
-        <!-- Bottom layer: bg-stepple.png -->
+
+        <AnimatedCharacter type="paperclip" class="composition-character" />
+        <!-- Фон ниже -->
         <img src="@/assets/bg-stepple.png" alt="Background" class="composition-bg" />
-        <!-- Top layer: paper-clip.png rotated 30 degrees -->
-        <img src="@/assets/paper-clip.png" alt="Paperclip" class="composition-top" />
       </div>
     </div>
     
@@ -33,8 +33,10 @@
 </template>
 
 <script>
+import AnimatedCharacter from './AnimatedCharacter.vue';
 export default {
   name: 'SectionHero',
+  components: { AnimatedCharacter },
 };
 </script>
 
@@ -52,7 +54,7 @@ export default {
   top: 40%;
   right: 15%;
   transform: translateY(-50%);
-  z-index: 1;
+  z-index: 2;
 }
 
 .composition-container {
@@ -70,6 +72,14 @@ export default {
   height: 120%;
   object-fit: contain;
   z-index: 1;
+}
+
+.composition-character {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 .composition-top {

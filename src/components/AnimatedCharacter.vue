@@ -7,7 +7,17 @@
   >
     <template v-if="type === 'paperclip'">
       <img src="@/assets/paper-clip.png" alt="Paperclip" class="paperclip-img" />
-      <img src="@/assets/Pupil.svg" alt="Character" class="character-inside" />
+      <div class="character-inside">
+        <img src="@/assets/person.png" alt="Person" class="person-img" />
+        <div class="eye eye-left">
+          <img src="@/assets/eye_white.svg" class="eye-white" />
+          <img src="@/assets/Pupil.svg" class="pupil" />
+        </div>
+        <div class="eye eye-right">
+          <img src="@/assets/eye_white.svg" class="eye-white" />
+          <img src="@/assets/Pupil.svg" class="pupil" />
+        </div>
+      </div>
     </template>
     <template v-else-if="type === 'idle'">
       <img src="@/assets/Pupil.svg" alt="Idle Character" class="idle-img" />
@@ -90,8 +100,8 @@ export default {
 
 <style scoped>
 .animated-character {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
   position: absolute;
   pointer-events: none;
   display: flex;
@@ -107,25 +117,58 @@ export default {
   z-index: 1;
 }
 .character-inside {
-  width: 40px;
-  height: 40px;
   position: absolute;
   left: 50%;
   top: 70%;
   transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
   z-index: 2;
 }
+.person-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.eye {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+}
+.eye-left {
+  left: 0px;
+  top: 14px;
+}
+.eye-right {
+  right: 0px;
+  top: 14px;
+}
+.eye-white, .pupil {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.eye-white {
+  width: 26px;
+  height: 26px;
+}
+.pupil {
+  width: 12px;
+  height: 12px;
+  left: 8px;
+  top: 8px;
+}
 .idle-img {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
   animation: idle-bob 2.5s ease-in-out infinite alternate;
 }
 @keyframes idle-bob {
   0% { transform: translateY(0) rotate(-3deg); }
-  100% { transform: translateY(18px) rotate(3deg); }
+  100% { transform: translateY(36px) rotate(3deg); }
 }
 .follow-img {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
 }
 </style> 
