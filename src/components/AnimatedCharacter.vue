@@ -6,16 +6,20 @@
     :style="characterStyle"
   >
     <template v-if="type === 'paperclip'">
-      <img src="@/assets/paper-clip.png" alt="Paperclip" class="paperclip-img" />
-      <div class="character-inside">
-        <img src="@/assets/person.png" alt="Person" class="person-img" />
-        <div class="eye eye-left">
-          <img src="@/assets/eye_white.svg" class="eye-white" />
-          <img src="@/assets/Pupil.svg" class="pupil" />
-        </div>
-        <div class="eye eye-right">
-          <img src="@/assets/eye_white.svg" class="eye-white" />
-          <img src="@/assets/Pupil.svg" class="pupil" />
+      <div class="paperclip-container" ref="paperclip">
+        <img src="@/assets/paper-clip.png" alt="Paperclip" class="paperclip-img" />
+        <div class="character-inside-container" ref="person">
+          <div class="character-inside">
+            <img src="@/assets/person.png" alt="Person" class="person-img" />
+            <div class="eye eye-left">
+              <img src="@/assets/eye_white.svg" class="eye-white" />
+              <img src="@/assets/Pupil.svg" class="pupil" />
+            </div>
+            <div class="eye eye-right">
+              <img src="@/assets/eye_white.svg" class="eye-white" />
+              <img src="@/assets/Pupil.svg" class="pupil" />
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -47,31 +51,40 @@ export default {
   setup(props) {
     const character = ref(null);
     const characterStyle = ref({});
+    const paperclip = ref(null);
+    const person = ref(null);
     let tl = null;
     let followHandler = null;
 
     onMounted(() => {
       if (props.type === 'paperclip') {
-        // Вращение скрепки
+        // Четырехтактная анимация: поворот - съезд - поворот - съезд
         tl = gsap.timeline({ repeat: -1, defaults: { ease: 'power1.inOut' } });
-        tl.to(character.value, { rotate: 360, duration: 4 });
+        // 1. Поворот скрепки и персонажа на -180° (против часовой)
+        tl.to(paperclip.value, { rotate: -180, duration: 1.2 });
+        // 2. Персонаж "съезжает" по диагонали в левый верхний угол (top: 0px, left: 20px)
+        tl.to(person.value, { top: 0, left: 80, duration: 0.7 }, '-=0.2');
+        // 3. Поворот скрепки и персонажа на -360° (еще -180°)
+        tl.to(paperclip.value, { rotate: -360, duration: 1.2 });
+        // 4. Персонаж возвращается по диагонали в левый нижний угол (top: 120px, left: 0px)
+        tl.to(person.value, { top: 120, left: 0, duration: 0.7 }, '-=0.2');
+        // 5. Возврат персонажа в исходное положение (top: 120px, left: 0px)
+        tl.to(person.value, { top: 120, left: 0, duration: 0.1 });
+        // 6. Сброс скрепки (чтобы цикл был плавным)
+        tl.set(paperclip.value, { rotate: 0 });
       }
       if (props.type === 'idle') {
-        // Idle покачивание через CSS (см. стиль)
-        // Можно добавить небольшое смещение для разных index
         characterStyle.value = {
           animationDelay: `${props.index * 0.5}s`
         };
       }
       if (props.type === 'follow-cursor') {
-        // Следим за мышкой
         followHandler = (e) => {
           const x = e.clientX;
           const y = e.clientY;
           character.value.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
         };
         window.addEventListener('mousemove', followHandler);
-        // Стартовая позиция
         character.value.style.position = 'fixed';
         character.value.style.left = '0';
         character.value.style.top = '0';
@@ -93,7 +106,7 @@ export default {
       }
     });
 
-    return { character, characterStyle };
+    return { character, characterStyle, paperclip, person };
   }
 };
 </script>
@@ -108,6 +121,14 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.paperclip-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .paperclip-img {
   width: 100%;
   height: 100%;
@@ -116,14 +137,20 @@ export default {
   top: 0;
   z-index: 1;
 }
-.character-inside {
+.character-inside-container {
   position: absolute;
-  left: 50%;
-  top: 70%;
-  transform: translate(-50%, -50%);
+  left: 0px;
+  top: 120px;
+  /* Старт: левый нижний угол */
   width: 76px;
   height: 76px;
   z-index: 2;
+  transition: filter 0.2s;
+}
+.character-inside {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 .person-img {
   width: 100%;
