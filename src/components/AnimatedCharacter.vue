@@ -58,20 +58,24 @@ export default {
 
     onMounted(() => {
       if (props.type === 'paperclip') {
+        // Явно задаём начальные стили для плавного цикла
+        gsap.set(paperclip.value, { rotate: 0 });
+        gsap.set(person.value, { top: 200, left: 40 });
+
         // Четырехтактная анимация: поворот - съезд - поворот - съезд
         tl = gsap.timeline({ repeat: -1, defaults: { ease: 'power1.inOut' } });
-        // 1. Поворот скрепки и персонажа на -180° (против часовой)
+        // 1. Поворот скрепки и персонажа на -180° (от 30° до -150°)
         tl.to(paperclip.value, { rotate: -180, duration: 1.2 });
-        // 2. Персонаж "съезжает" по диагонали в левый верхний угол (top: 0px, left: 20px)
-        tl.to(person.value, { top: 0, left: 80, duration: 0.7 }, '-=0.2');
-        // 3. Поворот скрепки и персонажа на -360° (еще -180°)
+        // 2. Персонаж "съезжает" по диагонали в левый верхний угол (top: 0px, left: 160px)
+        tl.to(person.value, { top: 0, left: 160, duration: 0.7 }, '-=0.2');
+        // 3. Поворот скрепки и персонажа на -360° (от -150° до -330°)
         tl.to(paperclip.value, { rotate: -360, duration: 1.2 });
-        // 4. Персонаж возвращается по диагонали в левый нижний угол (top: 120px, left: 0px)
-        tl.to(person.value, { top: 120, left: 0, duration: 0.7 }, '-=0.2');
-        // 5. Возврат персонажа в исходное положение (top: 120px, left: 0px)
-        tl.to(person.value, { top: 120, left: 0, duration: 0.1 });
-        // 6. Сброс скрепки (чтобы цикл был плавным)
-        tl.set(paperclip.value, { rotate: 0 });
+        // 4. Персонаж возвращается по диагонали в левый нижний угол (top: 240px, left: 0px)
+        tl.to(person.value, { top: 200, left: 40, duration: 0.7 }, '-=0.2');
+        // 5. Возврат персонажа в исходное положение (top: 240px, left: 0px)
+        tl.to(person.value, { top: 200, left: 40, duration: 0.1 });
+        // 6. Плавно возвращаем скрепку к 30° по кратчайшему пути (shortRotation)
+        tl.to(paperclip.value, { shortRotation: { rotate: 30 }, duration: 0.5 });
       }
       if (props.type === 'idle') {
         characterStyle.value = {
@@ -113,8 +117,8 @@ export default {
 
 <style scoped>
 .animated-character {
-  width: 180px;
-  height: 180px;
+  width: 360px;
+  height: 360px;
   position: absolute;
   pointer-events: none;
   display: flex;
@@ -130,20 +134,23 @@ export default {
   justify-content: center;
 }
 .paperclip-img {
-  width: 100%;
   height: 100%;
+  width: auto;
+  object-fit: contain;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(30deg);
+  transform-origin: center center;
   z-index: 1;
 }
 .character-inside-container {
   position: absolute;
   left: 0px;
-  top: 120px;
+  top: 240px;
   /* Старт: левый нижний угол */
-  width: 76px;
-  height: 76px;
+  width: 152px;
+  height: 152px;
   z-index: 2;
   transition: filter 0.2s;
 }
@@ -159,16 +166,16 @@ export default {
 }
 .eye {
   position: absolute;
-  width: 26px;
-  height: 26px;
+  width: 52px;
+  height: 52px;
 }
 .eye-left {
   left: 0px;
-  top: 14px;
+  top: 28px;
 }
 .eye-right {
   right: 0px;
-  top: 14px;
+  top: 28px;
 }
 .eye-white, .pupil {
   position: absolute;
@@ -176,26 +183,26 @@ export default {
   top: 0;
 }
 .eye-white {
-  width: 26px;
-  height: 26px;
+  width: 52px;
+  height: 52px;
 }
 .pupil {
-  width: 12px;
-  height: 12px;
-  left: 8px;
-  top: 8px;
+  width: 24px;
+  height: 24px;
+  left: 16px;
+  top: 16px;
 }
 .idle-img {
-  width: 180px;
-  height: 180px;
+  width: 360px;
+  height: 360px;
   animation: idle-bob 2.5s ease-in-out infinite alternate;
 }
 @keyframes idle-bob {
   0% { transform: translateY(0) rotate(-3deg); }
-  100% { transform: translateY(36px) rotate(3deg); }
+  100% { transform: translateY(72px) rotate(3deg); }
 }
 .follow-img {
-  width: 180px;
-  height: 180px;
+  width: 360px;
+  height: 360px;
 }
 </style> 
