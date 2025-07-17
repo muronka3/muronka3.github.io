@@ -17,22 +17,21 @@
         <a href="#" class="contact-link">Instagram</a>
       </div>
     </div>
-    <div class="reviews-character">
+    <!-- <div class="reviews-character">
       <AnimatedCharacter type="follow-cursor" />
-    </div>
+    </div> -->
   </section>
 </template>
 
 <script>
 import ParallaxBackground from './ParallaxBackground.vue';
-import AnimatedCharacter from './AnimatedCharacter.vue';
 import ReviewCard from './ReviewCard.vue';
 import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
 export default {
   name: 'SectionReviews',
-  components: { ParallaxBackground, AnimatedCharacter, ReviewCard, Carousel, Slide },
+  components: { ParallaxBackground, ReviewCard, Carousel, Slide },
 };
 </script>
 
