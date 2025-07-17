@@ -146,7 +146,7 @@ export default {
 }
 .character-inside-container {
   position: absolute;
-  left: 0px;
+  left: 10px;
   top: 240px;
   /* Старт: левый нижний угол */
   width: 152px;
@@ -163,19 +163,20 @@ export default {
   width: 100%;
   height: 100%;
   display: block;
+  transform: scale(0.9);
 }
 .eye {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: 18px;
+  height: 18px;
 }
 .eye-left {
-  left: 0px;
-  top: 28px;
+  left: 43px;
+  top: 67px;
 }
 .eye-right {
-  right: 0px;
-  top: 28px;
+  left: 95px;
+  top: 67px;
 }
 .eye-white, .pupil {
   position: absolute;
@@ -183,14 +184,14 @@ export default {
   top: 0;
 }
 .eye-white {
-  width: 52px;
-  height: 52px;
+  width: 14px;
+  height: 14px;
 }
 .pupil {
-  width: 24px;
-  height: 24px;
-  left: 16px;
-  top: 16px;
+  width: 6px;
+  height: 6px;
+  left: 4px;
+  top: 4px;
 }
 .idle-img {
   width: 360px;
