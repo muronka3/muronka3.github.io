@@ -1,8 +1,13 @@
 <template>
   <section id="hero" class="hero-section">
-    <!-- Animated Paperclip and Character -->
+    <!-- Visual Composition -->
     <div class="hero-visual">
-      <AnimatedCharacter type="paperclip" />
+      <div class="composition-container">
+        <!-- Bottom layer: bg-stepple.png -->
+        <img src="@/assets/bg-stepple.png" alt="Background" class="composition-bg" />
+        <!-- Top layer: paper-clip.png rotated 30 degrees -->
+        <img src="@/assets/paper-clip.png" alt="Paperclip" class="composition-top" />
+      </div>
     </div>
     
     <!-- Main Content -->
@@ -28,10 +33,8 @@
 </template>
 
 <script>
-import AnimatedCharacter from './AnimatedCharacter.vue';
 export default {
   name: 'SectionHero',
-  components: { AnimatedCharacter },
 };
 </script>
 
@@ -46,10 +49,36 @@ export default {
 
 .hero-visual {
   position: absolute;
-  top: 50%;
-  right: 10%;
+  top: 40%;
+  right: 15%;
   transform: translateY(-50%);
   z-index: 1;
+}
+
+.composition-container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.composition-bg {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.composition-top {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  opacity: 1;
 }
 
 .hero-content {
@@ -133,6 +162,16 @@ export default {
 
 /* Responsive adjustments */
 @media (max-width: 900px) {
+  .composition-container {
+    width: 400px;
+    height: 400px;
+  }
+  
+  .composition-bg {
+    width: 120%;
+    height: 120%;
+  }
+  
   .hero-columns {
     gap: 1.2rem;
   }
@@ -144,6 +183,16 @@ export default {
   }
 }
 @media (max-width: 768px) {
+  .composition-container {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .composition-bg {
+    width: 120%;
+    height: 120%;
+  }
+  
   .hero-content {
     flex-direction: column;
     gap: var(--spacing-md);
