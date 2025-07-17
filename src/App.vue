@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <HeaderBlock />
+    <main>
+      <SectionHero />
+      <SectionAbout />
+      <SectionPortfolio />
+      <SectionReviews />
+    </main>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderBlock from './components/HeaderBlock.vue';
+import SectionHero from './components/SectionHero.vue';
+import SectionAbout from './components/SectionAbout.vue';
+import SectionPortfolio from './components/SectionPortfolio.vue';
+import SectionReviews from './components/SectionReviews.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HeaderBlock,
+    SectionHero,
+    SectionAbout,
+    SectionPortfolio,
+    SectionReviews
   }
 }
 </script>
 
-<style>
+<style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: 'Sono', monospace, sans-serif;
+  background: var(--color-bg, #FDFDFD);
+  color: var(--color-text, #313131);
+  min-height: 100vh;
+}
+main {
+  width: 100%;
+  overflow-x: hidden;
 }
 </style>
