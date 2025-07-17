@@ -4,13 +4,25 @@
     <div class="hero-visual">
       <AnimatedCharacter type="paperclip" />
     </div>
+    
+    <!-- Main Content -->
     <div class="hero-content">
-      <h1>Hi, I’m Anna.<br>Graphic Designer based in Bishkek</h1>
-      <ul class="hero-info">
-        <li><span>skills:</span> Graphic Design, Motion Design, Print Design, UX/UI</li>
-        <li><span>time zone:</span> GMT +7</li>
-        <li><span>languages:</span> English, Russian, German</li>
-      </ul>
+      <!-- Left side -->
+      <div class="hero-left">
+        <span class="hero-tagline">Visual Solutions<br>that convert</span>
+      </div>
+      
+      <!-- Right side: две колонки -->
+      <div class="hero-right">
+        <div class="hero-columns">
+          <div class="hero-col hero-title-col">
+            <div class="hero-title">Graphic<br>Designer.</div>
+          </div>
+          <div class="hero-col hero-name-col">
+            <div class="hero-name">Anna<br>Riazanova</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -26,43 +38,128 @@ export default {
 <style scoped>
 .hero-section {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--spacing-lg);
   position: relative;
-}
-.hero-visual {
-  flex: 1 1 50%;
+  padding: var(--spacing-lg);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
+
+.hero-visual {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
 .hero-content {
-  flex: 1 1 50%;
+  position: absolute;
+  bottom: calc(var(--spacing-lg) / 1.5);
+  left: var(--spacing-lg);
+  right: var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+.hero-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--color-text);
+  font-family: 'Sono', monospace, sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  white-space: pre-line;
+}
+
+.hero-right {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: var(--spacing-md);
 }
-.hero-content h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0 0 var(--spacing-md) 0;
-  text-align: right;
+
+.hero-columns {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.25rem;
 }
-.hero-info {
-  list-style: none;
-  padding: 0;
+
+.hero-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.hero-title-col {
+  min-width: 0;
+}
+
+.hero-title {
+  font-size: 3.2rem;
+  font-weight: 400;
   margin: 0;
-  text-align: right;
+  color: var(--color-text);
+  line-height: 1.1;
+  font-family: 'Sono', monospace, sans-serif;
+  letter-spacing: 0.04em;
 }
-.hero-info li {
-  font-size: 1.1rem;
-  margin-bottom: var(--spacing-sm);
+
+.hero-name-col {
+  min-width: 0;
+  padding-left: 1.5rem;
 }
-.hero-info span {
-  font-weight: 700;
-  margin-right: 0.5em;
+
+.hero-name {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--color-text);
+  font-family: 'Sono', monospace, sans-serif;
+  letter-spacing: 0.04em;
+  white-space: pre-line;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .hero-columns {
+    gap: 1.2rem;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .hero-name {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+  .hero-right {
+    align-items: flex-start;
+  }
+  .hero-title {
+    font-size: 1.6rem;
+  }
+  .hero-name {
+    font-size: 1rem;
+  }
+  .hero-tagline {
+    font-size: 1.2rem;
+  }
 }
 </style> 
